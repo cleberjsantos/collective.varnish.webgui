@@ -1,8 +1,10 @@
-*.py[co]
+*.pyc[o]
+*~
 
 # Packages
 *.egg
 *.egg-info
+.DS_Store
 dist
 build
 eggs
@@ -25,3 +27,6 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+
+# vi swap file
+*.swp
