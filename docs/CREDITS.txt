@@ -1,0 +1,6 @@
+Credits
+-------
+
+Development of this package was sponsored by `Cleber J Santos`_.
+
+.. _`Cleber J Santos`: https://github.com/cleberjsantos
