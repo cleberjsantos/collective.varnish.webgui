@@ -1,0 +1,94 @@
+{% extends "bootstrap_responsive.html" %}
+{% import "bootstrap_wtf.html" as wtf %}
+
+{% block body_content %}
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a href="http://varnish-software.com/" class="pull-left">
+                        <svg version="1.2" baseProfile="tiny" id="Layer_1"
+                        style="margin-top: 2px; margin-right: 4px;"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+                        y="0px" width="32px" height="32px" viewBox="0 0 512 512"
+                        xml:space="preserve" fill="black"><path
+                        d="M376.261,30.86c58.724,0,106.319,47.603,106.319,106.326c0,58.724-47.596,106.327-106.319,106.327S269.941,195.91,269.941,137.187C269.941,78.463,317.537,30.86,376.261,30.86z"/><path
+                        d="M207.796,329.471c42.405,0,76.782,34.377,76.782,76.782c0,42.404-34.377,76.796-76.782,76.796
+                        s-76.782-34.392-76.782-76.796C131.015,363.848,165.392,329.471,207.796,329.471z"/><path
+                        d="M76.137,183.781c24.551,0,44.452,19.909,44.452,44.459s-19.901,44.452-44.452,44.452
+                        s-44.459-19.901-44.459-44.452S51.586,183.781,76.137,183.781z"/></svg>
+          </a>
+          <a class="brand" href="http://varnish-software.com/">Varnish Web Gui</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="#">Home</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <!-- Main hero unit for a primary marketing message or call to action -->
+      <div class="hero-unit">
+        <h1>Hello, world!</h1>
+        <p>This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
+        <p><a class="btn btn-primary btn-large">Learn more &raquo;</a></p>
+      </div>
+
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="span4">
+          <h2>Heading</h2>
+           <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+          <p><a class="btn" href="#">View details &raquo;</a></p>
+        </div>
+        <div class="span4">
+          <h2>Heading</h2>
+           <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+          <p><a class="btn" href="#">View details &raquo;</a></p>
+       </div>
+        <div class="span4">
+          <h2>Heading</h2>
+          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+          <p><a class="btn" href="#">View details &raquo;</a></p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="span12">
+
+          <form class="form form-horizontal" method="post">
+            {{ form.hidden_tag() }}
+            {{ wtf.form_errors(form, False) }}
+
+            {{ wtf.horizontal_field(form.field1) }}
+            {{ wtf.horizontal_field(form.field2) }}
+            <!-- Recaptcha filed omitted here, can't be placed twice? -->
+
+            <div class="form-actions">
+               <button name="action_save" type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+          </form>
+
+          <h3>The same form rendered using quick_form, including the ReCaptcha field</h3>
+
+          {{ wtf.quick_form(form) }}
+        </div>
+      </div>
+
+      <hr>
+
+      <footer>
+      <p>&copy; Company 2012 - and <i class="icon-camera-retro"></i> FontAwesome is supported as well!</p>
+      </footer>
+
+    </div> <!-- /container -->
+{% endblock %}

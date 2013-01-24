@@ -9,24 +9,25 @@ long_description = open("README.txt").read() + "\n" + \
                    open(os.path.join("docs", "CREDITS.txt")).read() + "\n" + \
                    open(os.path.join("docs", "HISTORY.txt")).read()
 
-setup(name='colllective.varnish.webgui',
+setup(name='collective.varnish.webgui',
       version=version,
       description="Is tool that can be used to administer and monitor your Varnish servers.",
       long_description=long_description,
       classifiers=[
-        "Framework :: Pyramid",
+        "Framework :: Flask",
         "Framework :: Bootstrap",
+        "Environment :: Web Environment",
+        "Intended Audience :: System Administrators",
         "License :: OSI Approved :: GNU General Public License (GPL)",
         "Operating System :: OS Independent",
         "Programming Language :: JavaScript",
         "Programming Language :: Python",
-        "Programming Language :: Python :: 2.6",
         "Programming Language :: Python :: 2.7",
         "Topic :: Internet :: WWW/HTTP",
         "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
         "Topic :: Software Development :: Libraries :: Python Modules",
         ],
-      keywords='python javascript pyramid bootstrap pylons',
+      keywords='python javascript flask bootstrap',
       author='Cleber J Santos',
       author_email='cleber@cleberjsantos.com.br',
       url='http://github.com/cleberjsantos/collective.varnish.webgui',
@@ -38,21 +39,25 @@ setup(name='colllective.varnish.webgui',
       zip_safe=False,
       install_requires=[
         'setuptools',
-        'pyramid>=1.3',
-        'pyramid_chameleon_genshi==0.6',
-        'pyramid_command==0.1',
-        'pyramid_debugtoolbar==1.0.2',
-        'deform_bootstrap',
-        'pyramid_oauth2_client',
-        'pyramid_rewrite==0.2',
-        'pyramid_xmlrpc',
-        'sqlalchemy',
+        'Flask',
+        'Flask-Bootstrap',
+        'Flask-GoogleLogin',
+        'Flask-Security',
+        'Flask-Auth',
+        'SQLAlchemy',
+        'psycopg2',
+        'Flask-SQLAlchemy',
+        'Flask-XML-RPC',
+        'Flask-Environments',
         'python-varnish',
         ],
-      paster_plugins=['pyramid'],
       entry_points="""\
+      [console_scripts]
+      varnishwebguictl = collective.varnish.webgui.webguiserver:run
+
       [paste.app_factory]
-      main = collective.varnish.webgui:main
+      main = collective.varnish.webgui.webguiserver:make_app
+      debug = collective.varnish.webgui.webguiserver:make_debug
 
       [z3c.autoinclude.plugin]
       target = collective.varnish.webgui
