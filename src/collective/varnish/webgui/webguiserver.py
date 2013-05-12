@@ -3,6 +3,9 @@
 import os
 import sys
 from functools import partial
+from pkg_resources import resource_filename
+
+from flask import Flask, request
 
 import paste.script.command
 import werkzeug.script
@@ -16,6 +19,13 @@ exit = sys.exit
 __base = os.getcwd()
 
 
+def usage(msg):
+    """Print a brief error message to stderr and exit(2)."""
+    stderr.write("Error: %s\n" % str(msg))
+    stderr.write("For help, use %s -h\n" % prognameexec)
+    exit(2)
+
+
 def default_configfile(pathdir, filename):
     """ Return the name of the found config file or raise. """
     base = __base
@@ -27,6 +37,14 @@ def default_configfile(pathdir, filename):
         if filename in os.listdir(pathdir):
             paths.append(os.path.join(__base, pathdir, filename))
             config = paths[0]
+        else:
+            # Default configuration files
+            paths.append(resource_filename(__name__, 'skel/' + filename))
+            config = paths[0]
+    else:
+        # Default configuration files
+        paths.append(resource_filename(__name__, 'skel/' + filename))
+        config = paths[0]
     sys.path[0:0] = paths
     if config is None:
         usage('No config file found at default paths (%s); '
@@ -36,19 +54,8 @@ def default_configfile(pathdir, filename):
 
 _buildout_path = partial(os.path.join, default_configfile)
 abspath = _buildout_path()
-
 DEPLOY_INI = abspath('etc', 'deploy.ini')
 DEPLOY_CFG = abspath('etc', 'deploy.cfg')
-
-DEBUG_INI = abspath('etc', 'debug.ini')
-DEBUG_CFG = abspath('etc', 'debug.cfg')
-
-
-def usage(msg):
-    """Print a brief error message to stderr and exit(2)."""
-    stderr.write("Error: %s\n" % str(msg))
-    stderr.write("For help, use %s -h\n" % prognameexec)
-    exit(2)
 
 
 del _buildout_path
@@ -67,24 +74,20 @@ def log(msg, logfile):
 
 
 # bin/paster serve parts/etc/deploy.ini
-def make_app(global_conf={}, config=DEPLOY_CFG, debug=False):
+def make_app(global_conf={}, config=DEPLOY_CFG):
     from collective.varnish.webgui import app
     app.config.from_pyfile(config)
-    app.debug = debug
-    return app
-
-
-# bin/paster serve parts/etc/debug.ini
-def make_debug(global_conf={}, **conf):
-    from werkzeug.debug import DebuggedApplication
-    app = make_app(global_conf, config=DEBUG_CFG, debug=True)
-    return DebuggedApplication(app, evalex=True)
+    if app.debug:
+        print '\n\nInitialized: DEBUG MODE\n\n'
+        from werkzeug.debug import DebuggedApplication
+        return DebuggedApplication(app, evalex=True)
+    else:
+        return app
 
 
 # bin/varnishwebguictl shell
 def make_shell():
     """Interactive VarnishWebGui Shell"""
-    from flask import request
     from collective.varnish.webgui import init_db as initdb
     app = make_app()
     http = app.test_client()
@@ -98,11 +101,7 @@ def _init_db(debug=False, dry_run=False):
     print 'init_db()'
     if dry_run:
         return
-    # Configure the application
-    if debug:
-        make_debug()
-    else:
-        make_app()
+    make_app()
     # Create the tables
     init_db()
 
@@ -112,10 +111,7 @@ def _serve(action, debug=False, dry_run=False):
     if action == 'initdb':
         # First, create the tables
         return _init_db(debug=debug, dry_run=dry_run)
-    if debug:
-        config = DEBUG_INI
-    else:
-        config = DEPLOY_INI
+    config = DEPLOY_INI
     argv = ['bin/paster', 'serve', config]
     if action in ('start', 'restart'):
         argv += [action, '--daemon']

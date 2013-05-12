@@ -1,1 +1,11 @@
-Use twitter bootstrap
+* -Use twitter bootstrap-
+* Autentication with OAuth (Google, Facebook, Twitter and others)
+* -Autentication with DataBase (Mysql, PostgreSql and SqLite)-
+* XML-RPC Support 
+* PyMunin
+
+Others
+^^^^^^^
+
+* DebugToolbar
+* -Gravatar-

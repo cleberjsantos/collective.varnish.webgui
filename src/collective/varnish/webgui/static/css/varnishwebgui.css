@@ -1,0 +1,197 @@
+/**
+ * Custom CSS for VarnishWebGUI.
+ */
+
+#footer {
+    margin: 20px 0;
+}
+
+#footer .container nav {
+    margin-right: 32px;
+    float: left;
+    height: 20px;
+    margin-left: -3px;
+    line-height: 20px;
+}
+
+.visualClear {
+    clear: both;
+}
+
+
+/* Login form */
+.form-signin {
+    max-width: 450px;
+    padding: 19px 29px 29px;
+    margin: 0 auto 20px;
+    background-color: #fff;
+    border: 1px solid #e5e5e5;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+    -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+    box-shadow: 0 1px 2px rgba(0,0,0,.05);
+}
+
+.form-signin input[type="text"], .form-signin input[type="password"] {
+    font-size: 16px;
+    height: auto;
+    margin-bottom: 15px;
+    padding: 7px 9px;
+}
+
+.form-signin i.icon-user, .form-signin i.icon-key, .form-signin span.add-on{
+    margin-bottom: 15px;
+    padding: 7px 9px;
+}
+
+/**
+ * WTforms and Bootstrapping
+ */
+.control-group .help-block {
+  color: #999;
+  font-size: .75em;
+}
+
+.control-group .controls ul {
+  list-style: none;
+}
+
+.control-group .controls ul li label {
+  display: inline-block;
+  padding-left: .25em;
+}
+
+.navbar-fixed-top .navbar-inner, .navbar-static-top .navbar-inner {
+    background: #336fb6;
+}
+
+.navbar .brand {
+    color: #fff;
+    text-shadow: 0 1px 0 #000;
+}
+
+.navbar .nav>li>a {
+    color: #fff;
+    text-decoration: none;
+    text-shadow: 0 1px 0 #000;
+}
+
+/**
+ * Volunteer list
+ */
+.volunteer-image-profile {
+  width: 48px;
+  float: left;
+}
+
+.volunteer-info {
+  padding-left: 5em;
+}
+
+.volunteer-section {
+  min-height: 48px;
+  margin: 0 1em 1em 0;
+}
+
+/*  ADVANCED STYLES */
+.top_testresult{
+        font-weight: bold;
+        font-size:13px;
+        font-family: arail,helvetica,san-serif;
+        color:#666;
+        padding:0;
+        margin:0 0 2px 0;
+}
+.top_testresult span{
+        padding:6px ;
+        margin:0;
+}
+.top_shortPass{
+        background:#edabab;
+        border:1px solid #bc0000;
+        display:block;
+}
+.top_shortPass span{
+        
+}
+.top_badPass{
+        background:#edabab;
+        border:1px solid #bc0000;
+        display:block;
+}
+.top_badPass span{
+        
+}
+.top_goodPass{
+        background:#ede3ab;
+        border:1px solid #bc9f00;
+        display:block;
+}
+.top_goodPass span{
+
+}
+.top_strongPass{
+        background:#d3edab;
+        border:1px solid #73bc00;
+        display:block;
+}
+.top_strongPass span{
+
+}
+
+
+/*  RESULT STYLE  */
+.testresult{
+        font-weight: bold;
+        font-size:13px;
+        font-family: arial,helvetica,san-serif;
+        color:#666;
+        padding:0px 0px 12px 10px;
+        margin-left:10px;
+        display: block;
+        height:28px;
+        float:left;
+}
+.testresult span{
+        padding:10px 20px 12px 10px;
+        margin: 0px 0px 0px 20px;
+        display:block;
+        float:right;
+        white-space: nowrap;
+}
+.shortPass{
+        background:url(images/red.png) no-repeat 0 0;
+}
+.shortPass span{
+        background:url(images/red.png) no-repeat top right;
+}
+.badPass{
+        background:url(images/red.png) no-repeat 0 0;
+}
+.badPass span{
+        background:url(images/red.png) no-repeat top right;
+}
+.goodPass{
+        background:url(images/yellow.png) no-repeat 0 0;
+}
+.goodPass span{
+        background:url(images/yellow.png) no-repeat top right;
+}
+.strongPass{
+        background:url(images/green.png) no-repeat 0 0;
+}
+.strongPass span{
+        background:url(images/green.png) no-repeat top right;
+}
+
+.text-white {
+    color:#fff;
+    margin: 0;
+    padding: 7px;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}

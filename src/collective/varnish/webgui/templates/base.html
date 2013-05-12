@@ -1,0 +1,127 @@
+{% extends "bootstrap_responsive.html" %}
+{% import "bootstrap_wtf.html" as wtf %}
+
+<!-- Macros -->
+{% from 'macros.html' import render_field, show_labeltext with context %}
+<!-- Macros -->
+
+
+{% block title %}Varnish Web GUI{% endblock title %}
+
+{% block style %}
+  {{ super() }}
+  <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/vnd.microsoft.icon" />
+
+  <link href="{{ url_for('static', filename='css/varnishwebgui.css') }}" rel="stylesheet">
+{% endblock style %}
+
+
+{% block body_content %}
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-block alert-error fade in">
+                <a class="close" data-dismiss="alert" href="#">×</a>
+                  {{ message }}
+            </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a href="http://varnish-software.com/" class="pull-left">
+                        <svg version="1.2" baseProfile="tiny" id="Layer_1"
+                        style="margin-top: 2px; margin-right: 4px;"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+                        y="0px" width="32px" height="32px" viewBox="0 0 512 512"
+                        xml:space="preserve" fill="#fff"><path
+                        d="M376.261,30.86c58.724,0,106.319,47.603,106.319,106.326c0,58.724-47.596,106.327-106.319,106.327S269.941,195.91,269.941,137.187C269.941,78.463,317.537,30.86,376.261,30.86z"/><path
+                        d="M207.796,329.471c42.405,0,76.782,34.377,76.782,76.782c0,42.404-34.377,76.796-76.782,76.796
+                        s-76.782-34.392-76.782-76.796C131.015,363.848,165.392,329.471,207.796,329.471z"/><path
+                        d="M76.137,183.781c24.551,0,44.452,19.909,44.452,44.459s-19.901,44.452-44.452,44.452
+                        s-44.459-19.901-44.459-44.452S51.586,183.781,76.137,183.781z"/></svg>
+          </a>
+
+          <a class="brand" href="http://varnish-software.com/">Varnish Web Gui</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li {% if page_name == "index" %} class="active" {% endif %}><a href="{{ url_for('index') }}">Home</a></li>
+              <li {% if page_name == "about" %} class="active" {% endif %}><a href="{{ url_for('about') }}">About</a></li>
+              <li {% if page_name == "contact" %} class="active" {% endif %}><a href="{{ url_for('contact') }}">Contact</a></li>
+
+              {% if not session['username'] %}
+                <li {% if page_name == "login" %} class="active" {% endif %}><a href="{{ url_for('login') }}">Login</a></li>
+              {% else %}
+                <li><a href="{{ url_for('logout') }}">Log out</a></li>
+              {% endif %}
+            </ul>
+
+            {% if session['username'] %}
+                {% cache 'gravatar', 300 %}
+                    <p class="text-white navbar-text pull-right">
+                        <img class="gravatar" src="{{ session['username'] | gravatar(size=27) }}" /> Logged in as {{ session['username'] }}
+                    </p>
+                {% endcache %}
+            {% endif %}
+
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+        {% block content %}{% endblock content %}
+
+        {% block footer_content %}
+            <hr>
+            <div id="footer">
+              <div class="container">
+               <nav><p class="muted">Varnish Web GUI by <a href="http://www.cleberjsantos.com.br">Cleber J Santos</a>.</p></nav>
+               <nav><p class="muted"><i class="icon-github-alt"></i><a href="https://github.com/cleberjsantos/collective.varnish.webgui"> Github Repository</a> &nbsp;&nbsp;
+                                     <i class="icon-twitter"></i><a href="https://twitter.com/cleberjsantos"> Follow on Twitter</a></p></nav>
+
+              </div>
+            </div>
+        {% endblock footer_content %}
+
+    </div>
+{% endblock body_content %}
+
+{% block bootstrap_js_bottom %}
+  {{ super() }}
+
+     <!-- All JavaScript at the bottom, except for Modernizr / Respond.
+       Modernizr enables HTML5 elements & feature detects; Respond is a polyfill for min/max-width CSS3 Media Queries
+       For optimal performance, use a custom Modernizr build: www.modernizr.com/download/ -->
+
+    <script src="{{ url_for('static', filename='js/modernizr2.6.2.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/varnishwebgui.js') }}"></script>
+
+    <!-- Change UA-XXXXX-X to be your site's ID -->
+    <script>
+    window._gaq = [['_setAccount','UAXXXXXXXX1'],['_trackPageview'],['_trackPageLoadTime']];
+    Modernizr.load({
+      load: ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js'
+    });
+    </script>
+
+
+    <!-- Prompt IE 6 users to install Chrome Frame. Remove this if you want to support IE 6.
+       chromium.org/developers/how-tos/chrome-frame-getting-started -->
+    <!--[if lt IE 7 ]>
+    <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
+    <script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
+    <![endif]-->
+
+  {% block inline_js %}{% endblock inline_js %}
+{% endblock bootstrap_js_bottom %}
